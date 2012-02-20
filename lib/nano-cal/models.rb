@@ -40,8 +40,8 @@ module NanoCal
       def initialize(opts ={})
         @title = opts[:title] || opts["title"]
         @description = opts[:description] || opts["description"]
-        @start = to_date opts[:start] || opts["start"] 
-        @stop = to_date opts[:stop] || opts["stop"]
+        @start = Parser.to_date opts[:start] || opts["start"] 
+        @stop = Parser.to_date opts[:stop] || opts["stop"]
       end
 
       def to_s
@@ -49,19 +49,11 @@ module NanoCal
       end
       
       def <=>(other_event)
-        result = self.title<=>(other_event.title)
-        result = self.start<=>(other_event.start) if result == 0
+        result = self.start<=>(other_event.start)        
+        result = self.title<=>(other_event.title) if result == 0
         result = self.stop<=>(other_event.stop) if result == 0
+        result
       end
-    
-      private
-      def to_date(obj)
-        if obj.class == String
-          DateTime.parse(obj)
-        elsif [DateTime, Time].include?(obj.class)
-          obj
-        end
-      end   
     end
   end
 end

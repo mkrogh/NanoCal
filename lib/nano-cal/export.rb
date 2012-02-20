@@ -5,6 +5,23 @@ module NanoCal
     end
   
     module InstanceMethods
+      def advance_to(start_date)
+        start = Parser.to_date(start_date)
+        first_date = self.events.first.start.to_date
+        
+        days = 0
+        self.events.collect! do |event|
+          days += 1 if first_date.advance(:days => (days+1)) < event.start
+
+          ds = start.advance(:days => days)
+          de = ds
+          de = start.advance(:days => (days+1)) if event.start.to_date < event.stop.to_date
+
+          event.start = DateTime.new(ds.year, ds.month, ds.day, event.start.hour, event.start.minute,event.start.second, event.start.zone) unless event.start.nil?
+          event.stop = DateTime.new(de.year, de.month, de.day, event.stop.hour, event.stop.minute, event.stop.second, event.stop.zone) unless event.stop.nil?
+          event
+        end
+      end
       def timezone=(timezone)
         RiCal::PropertyValue::DateTime.default_tzid = timezone
       end
