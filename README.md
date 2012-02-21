@@ -21,6 +21,7 @@ Usage
       -v, [--verbose]
 
 Example:
+
     #Advance events to specified date and generate iCalendar
     ruby nano-cal.rb generate spec/json/nano-cal.json -d "2012-02-24"
 
