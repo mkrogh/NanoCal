@@ -27,7 +27,7 @@ Example:
 TODO
 ----
 
-1. make it possible to advance events with a new start date
+Nothing atm
 
 License
 -------
