@@ -46,8 +46,8 @@ describe NanoCal::Export do
 
   it "advances non concecutive events" do
     e = @events.last
-    e.start = e.start.advance(:days => 2)
-    e.stop = e.stop.advance(:days => 2)
+    e.start = e.start + 2
+    e.stop = e.stop + 2 
 
     pt = AdvanceTest.new
     pt.events = @events
@@ -59,7 +59,7 @@ describe NanoCal::Export do
 
   it "can advance events spanning muliple days" do
     event = @events.first
-    event.stop = event.stop.advance :days => 2 #now spans 2 days
+    event.stop = event.stop + 2 #now spans 2 days
 
     pt = AdvanceTest.new
     pt.events = [event]

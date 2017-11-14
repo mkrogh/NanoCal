@@ -12,8 +12,8 @@ module NanoCal
         offset = (start_date - first_date).round
 
         self.events.collect! do |event|
-          event.start = event.start.advance(:days => offset) unless event.start.nil?
-          event.stop = event.stop.advance(:days => offset) unless event.stop.nil?
+          event.start = event.start + offset unless event.start.nil?
+          event.stop = event.stop + offset unless event.stop.nil?
           event
         end
       end
